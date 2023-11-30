@@ -1,14 +1,15 @@
 pi = 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679
+e = 0
 factorials = {0: 1, 1: 1}
 def fibonacci(n, printb=0):
     x = 0
     y = 1
     if printb == 1:
-        print("0: " + str(y))
-    for i in range(n):
+        print("1: " + str(y))
+    for i in range(n - 1):
         z = x + y
         if printb == 1:
-            print(str(i + 1) + ": " + str(z))
+            print(str(i + 2) + ": " + str(z))
         x = y
         y = z
     if printb == 1:
@@ -49,7 +50,7 @@ def sin(n, terms=170, decimal_places=12):
     return rounded_result
 def cos(n, terms=170, decimal_places=12):
     # Convert angle to radians
-    angle_in_radians = n * (3.14159265358979323846 / 180.0)
+    angle_in_radians = n * (pi / 180.0)
 
     # Calculate cos using Taylor series expansion
     cos_value = 1
@@ -79,4 +80,10 @@ def sum(n):
     for i in range(n):
         k += (i + 1)
     return(k)
+def calculate_e(terms):
+    e_appro = 1
+    for i in range(1, terms):
+        e_appro += 1 / factorial(i)
+    return e_appro
+e = calculate_e(10000)
 
