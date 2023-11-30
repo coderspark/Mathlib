@@ -74,4 +74,9 @@ def tan(n, terms=170, decimal_places=12):
     tan_value = sin_value / cos_value
 
     return round(tan_value, decimal_places)
+def sum(n):
+    k = 0
+    for i in range(n):
+        k += (i + 1)
+    return(k)
 
