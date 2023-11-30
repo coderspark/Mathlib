@@ -1,0 +1,77 @@
+pi = 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679
+factorials = {0: 1, 1: 1}
+def fibonacci(n, printb=0):
+    x = 0
+    y = 1
+    if printb == 1:
+        print("0: " + str(y))
+    for i in range(n):
+        z = x + y
+        if printb == 1:
+            print(str(i + 1) + ": " + str(z))
+        x = y
+        y = z
+    if printb == 1:
+        print("\n \n")
+    return z
+def sqrt(n):
+    x = n
+    count = 0
+
+    while True:
+        count += 1
+        root = 0.5 * (x + (n / x))
+        if (abs(root - x) < 0.00000000000000000000001):
+            break
+        x = root
+    
+    return root
+def pyth_thereom(a, b):
+    return sqrt((a * a) + (b * b))
+def factorial(n):
+    if n in factorials:
+        return factorials[n]
+    else:
+        result = n * factorial(n - 1)
+        factorials[n] = result
+        return result
+def sin(n, terms=170, decimal_places=12):
+    angle_in_radians = n * (pi / 180)
+    sin_value = angle_in_radians
+    sign = -1
+    for i in range(3, terms + 1, 2):
+        sin_value += sign * (angle_in_radians ** i) / factorial(i)
+        sign *= -1
+
+    # Round the result to the specified number of decimal places
+    rounded_result = round(sin_value, decimal_places)
+
+    return rounded_result
+def cos(n, terms=170, decimal_places=12):
+    # Convert angle to radians
+    angle_in_radians = n * (3.14159265358979323846 / 180.0)
+
+    # Calculate cos using Taylor series expansion
+    cos_value = 1
+    sign = -1
+    for i in range(2, terms + 1, 2):
+        cos_value += sign * (angle_in_radians ** i) / factorial(i)
+        sign *= -1
+
+    # Round the result to the specified number of decimal places
+    rounded_result = round(cos_value, decimal_places)
+
+    return rounded_result
+def tan(n, terms=170, decimal_places=12):
+    # Calculate tan as sin(angle) / cos(angle)
+    sin_value = sin(n, terms, decimal_places)
+    cos_value = cos(n, terms, decimal_places)
+
+    # Check for division by zero (cos(angle) = 0)
+    if cos_value == 0:
+        return "Undefined (tan is undefined when cos(angle) is 0)"
+
+    tan_value = sin_value / cos_value
+
+    return round(tan_value, decimal_places)
+
