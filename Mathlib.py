@@ -1,3 +1,4 @@
+from decimal import *
 pi = 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679
 factorials = {0: 1, 1: 1}
 def fibonacci(n, printb=0):
@@ -79,11 +80,14 @@ def sum(n):
     for i in range(n):
         k += (i + 1)
     return(k)
-def calculate_e(terms):
-    e_appro = 1
-    for i in range(1, terms):
-        e_appro += 1 / factorial(i)
-    return e_appro
+def calculate_e(n_terms):
+    getcontext().prec = n_terms + 100  # Set precision to include extra digits
+    e_approximation = Decimal(1)
+    nfactorial = Decimal(1)
+    for n in range(1, n_terms):
+        nfactorial *= n
+        e_approximation += Decimal(1) / nfactorial
+    return e_approximation
 def log(n, base=10):
     if n <= 0 or base <= 0 or base == 1:
         raise ValueError("n and base need to be higher than 0 and it cannot be base 1")
@@ -94,7 +98,19 @@ def log(n, base=10):
     return result
 def ln(n):
     return log(n, e)
+class matrix():
+    def __init__(self, m):
+        self.m = m
+    def add(self, l):
+        x = []
+        for i in range(len(self.m)):
+            x.append(self.m[i] + l[i])
+        return x
+    def subtract(self, l):
+        x = []
+        for i in range(len(self.m)):
+            x.append(self.m[i] - l[i])
+        return x
 
 
-
-e = calculate_e(10000)
+e = calculate_e(50)
