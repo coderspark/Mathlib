@@ -1,30 +1,30 @@
 pi = 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679
 factorials = {0: 1, 1: 1}
 def fibonacci(n, printb=0):
-    x = 0
-    y = 1
+    if n == 1 or n == 2:
+        return 1
     if printb == 1:
+        x = 0
+        y = 1
         print("1: " + str(y))
-    for i in range(n - 1):
-        z = x + y
-        if printb == 1:
+        for i in range(n - 1):
+            z = x + y
             print(str(i + 2) + ": " + str(z))
-        x = y
-        y = z
-    if printb == 1:
+            x = y
+            y = z
         print("\n \n")
-    return z
+        return z
+    else:
+        return fibonacci(n - 1) + fibonacci(n - 2)
 def sqrt(n):
     x = n
     count = 0
-
     while True:
         count += 1
         root = 0.5 * (x + (n / x))
         if (abs(root - x) < 0.00000000000000000000001):
             break
         x = root
-    
     return root
 def pyth_thereom(a, b):
     return sqrt((a * a) + (b * b))
@@ -84,5 +84,17 @@ def calculate_e(terms):
     for i in range(1, terms):
         e_appro += 1 / factorial(i)
     return e_appro
-e = calculate_e(10000)
+def log(n, base=10):
+    if n <= 0 or base <= 0 or base == 1:
+        raise ValueError("n and base need to be higher than 0 and it cannot be base 1")
+    result = 0
+    while n >= base:
+        n /= base
+        result += 1
+    return result
+def ln(n):
+    return log(n, e)
 
+
+
+e = calculate_e(10000)
