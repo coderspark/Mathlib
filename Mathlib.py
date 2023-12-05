@@ -23,7 +23,7 @@ def sqrt(n):
     while True:
         count += 1
         root = 0.5 * (x + (n / x))
-        if (abs(root - x) < 0.00000000000000000000001):
+        if (abs(root - x) < 0.000000000000000000000001):
             break
         x = root
     return root
@@ -103,14 +103,52 @@ class matrix():
         self.m = m
     def add(self, l):
         x = []
-        for i in range(len(self.m)):
-            x.append(self.m[i] + l[i])
-        return x
+        y = []
+        z = []
+        if any(isinstance(element, list) for element in self.m):
+            for n in range(len(self.m)):
+                for i in range(len(self.m[1])):
+                    p = self.m[n]
+                    pl = l[n]
+                    if n == 0:
+                        x.append(p[i] + pl[i])
+                    elif n == 1:
+                        y.append(p[i] + pl[i])
+                    else:
+                        z.append(p[i] + pl[i])
+            f = []
+            f.append(x)
+            f.append(y)
+            return f
+
+        else:
+            for i in range(len(self.m)):
+                x.append(self.m[i] + l[i])
+            return x
     def subtract(self, l):
         x = []
-        for i in range(len(self.m)):
-            x.append(self.m[i] - l[i])
-        return x
+        y = []
+        z = []
+        if any(isinstance(element, list) for element in self.m):
+            for n in range(len(self.m)):
+                for i in range(len(self.m[1])):
+                    p = self.m[n]
+                    pl = l[n]
+                    if n == 0:
+                        x.append(p[i] - pl[i])
+                    elif n == 1:
+                        y.append(p[i] - pl[i])
+                    else:
+                        z.append(p[i] - pl[i])
+            f = []
+            f.append(x)
+            f.append(y)
+            return f
+
+        else:
+            for i in range(len(self.m)):
+                x.append(self.m[i] - l[i])
+            return x
 
 
 e = calculate_e(50)
