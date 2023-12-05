@@ -11,3 +11,8 @@ sin(n), cos(n), and tan(n)(ignore terms and decimal_places) calculate the sine, 
 
 sum(n) is if n = 5 then it will return 1 + 2 + 3 + 4 + 5
 
+calculate_e() runs a calculation of eulers number e
+
+log and ln will do logrithms with chosen base and ln is log base e
+
+also matrix class add subtract multiply
