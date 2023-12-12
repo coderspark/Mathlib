@@ -43,37 +43,23 @@ def sin(n, terms=170, decimal_places=12):
     for i in range(3, terms + 1, 2):
         sin_value += sign * (angle_in_radians ** i) / factorial(i)
         sign *= -1
-
-    # Round the result to the specified number of decimal places
     rounded_result = round(sin_value, decimal_places)
-
     return rounded_result
 def cos(n, terms=170, decimal_places=12):
-    # Convert angle to radians
     angle_in_radians = n * (pi / 180.0)
-
-    # Calculate cos using Taylor series expansion
     cos_value = 1
     sign = -1
     for i in range(2, terms + 1, 2):
         cos_value += sign * (angle_in_radians ** i) / factorial(i)
         sign *= -1
-
-    # Round the result to the specified number of decimal places
     rounded_result = round(cos_value, decimal_places)
-
     return rounded_result
 def tan(n, terms=170, decimal_places=12):
-    # Calculate tan as sin(angle) / cos(angle)
     sin_value = sin(n, terms, decimal_places)
     cos_value = cos(n, terms, decimal_places)
-
-    # Check for division by zero (cos(angle) = 0)
     if cos_value == 0:
         return "Undefined (tan is undefined when cos(angle) is 0)"
-
     tan_value = sin_value / cos_value
-
     return round(tan_value, decimal_places)
 def sum(n):
     k = 0
@@ -98,10 +84,12 @@ def log(n, base=10):
     return result
 def ln(n):
     return log(n, e)
+
 class matrix():
     def __init__(self, m):
         self.m = m
-    def add(self, l):
+    def add(self, a):
+        l = a.m
         x = []
         y = []
         z = []
@@ -119,19 +107,22 @@ class matrix():
             f = []
             f.append(x)
             f.append(y)
+            if len(self.m) == 3:
+                f.append(z)
             return f
 
         else:
             for i in range(len(self.m)):
                 x.append(self.m[i] + l[i])
             return x
-    def subtract(self, l):
+    def subtract(self, a):
+        l = a.m
         x = []
         y = []
         z = []
         if any(isinstance(element, list) for element in self.m):
             for n in range(len(self.m)):
-                for i in range(len(self.m[1])):
+                for i in range(len(self.m[n])):
                     p = self.m[n]
                     pl = l[n]
                     if n == 0:
@@ -143,12 +134,72 @@ class matrix():
             f = []
             f.append(x)
             f.append(y)
+            if len(self.m) == 3:
+                f.append(z)
             return f
 
         else:
             for i in range(len(self.m)):
                 x.append(self.m[i] - l[i])
             return x
+    def multiply(self, a):
+        l = a.m
+        x = []
+        y = []
+        z = []
+        if any(isinstance(element, list) for element in self.m):
+            if len(l) != len(self.m):
+                if len(self.m[0]) != len(l):
+                    print("Unable to multiply")
+                    return
+                c = []
+                nl = []
+                for n in range(len(l[0])):
+                    for i in range(len(l)):
+                        c.append(l[i][n])
+                    nl.append(c)
+                    c = []
+                l = nl
+            for n in range(len(self.m)):
+                for i in range(len(l[n])):
+                    p = self.m[n]
+                    if len(self.m) == 2:
+                        if n == 0:
+                            x.append((self.m[0][i] * l[0][i]))
+                            if len(x) == len(self.m[0]):
+                                for n in range(len(x) - 1):
+                                    x[0] += x[n + 1]
+                                for w in range(1, len(x) - 1):
+                                    x.remove(x[w])
+                                x.remove(x[1])
+                                for _ in range(len(p)):
+                                    x.append((self.m[0][_] * l[1][_]))
+                                    if len(x) == len(self.m[0]) + 1:
+                                        for v in range(2, len(x)):
+                                            x[1] += x[v]
+                                        for w in range(2, len(x) - 1):
+                                            x.remove(x[w])
+                                x.remove(x[2])
+                        if n == 1:
+                            y.append((self.m[1][i] * l[0][i]))
+                            if len(y) == len(self.m[0]):
+                                for n in range(len(y) - 1):
+                                    y[0] += y[n + 1]
+                                for w in range(1, len(y) - 1):
+                                    y.remove(y[w])
+                                y.remove(y[1])
+                                for _ in range(len(p)):
+                                    y.append((self.m[1][_] * l[1][_]))
+                                    if len(y) == len(self.m[0]) + 1:
+                                        for v in range(2, len(y)):
+                                            y[1] += y[v]
+                                        for w in range(2, len(y) - 1):
+                                            y.remove(y[w])
+                                y.remove(y[2])
+                            
+                                
+            return [x, y]
 
 
-e = calculate_e(50)
+                     
+e = calculate_e(1000)
